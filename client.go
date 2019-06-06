@@ -7,6 +7,8 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"os"
+	"strconv"
 	"time"
 )
 
@@ -18,6 +20,13 @@ type AgentClient struct {
 
 	AccessToken          string
 	AccessTokenExpiresAt time.Time
+}
+
+func NewAgentClientFromEnv() *AgentClient {
+	corpId := os.Getenv("WECHAT_CORP_ID")
+	secret := os.Getenv("WECHAT_SECRET")
+	agentId, _ := strconv.Atoi(os.Getenv("WECHAT_AGENT_ID"))
+	return NewAgentClient(corpId, agentId, secret)
 }
 
 func NewAgentClient(corpId string, agentId int, secret string) *AgentClient {
