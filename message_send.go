@@ -1,6 +1,16 @@
 package wechat
 
 //给多个用户发送文本应用消息
+func (cli *AgentClient) SendImageToUsers(mediaId string, users ...string) (string, error) {
+	message := NewMediaMessage("image", mediaId)
+	message.SetUser(users)
+
+	invalidUsers, _, _, err := cli.MessageSend(message)
+
+	return invalidUsers, err
+}
+
+//给多个用户发送文本应用消息
 func (cli *AgentClient) SendTextToUsers(content string, users ...string) (string, error) {
 	message := NewTextMessage(content)
 	message.SetUser(users)

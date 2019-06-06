@@ -15,8 +15,10 @@ type Message struct {
 	MsgType string `json:"msgtype"` //消息类型
 
 	Text              *TextMessage              `json:"text,omitempty"`
+	Image             *MediaMessage             `json:"image,omitempty"`
+	Voice             *MediaMessage             `json:"voice,omitempty"`
+	File              *MediaMessage             `json:"file,omitempty"`
 	Video             *VideoMessage             `json:"video,omitempty"`
-	File              *FileMessage              `json:"file,omitempty"`
 	News              *NewsMessage              `json:"news,omitempty"`
 	MpNews            *MpNewsMessage            `json:"mpnews,omitempty"`
 	Markdown          *MarkdownMessage          `json:"markdown,omitempty"`
@@ -42,14 +44,45 @@ func NewTextMessage(content string) *Message {
 	}
 }
 
+type MediaMessage struct {
+	MediaId string `json:"media_id"`
+}
+
+//创建一条素材消息（image、voice、file）
+func NewMediaMessage(mediaType, mediaId string) *Message {
+	message := Message{MsgType: mediaType}
+	mediaMessage := &MediaMessage{MediaId: mediaId}
+
+	switch mediaType {
+	case "image":
+		message.Image = mediaMessage
+	case "voice":
+		message.Voice = mediaMessage
+	case "file":
+		message.File = mediaMessage
+	}
+
+	return &message
+}
+
 type VideoMessage struct {
-	MediaId     string `json:"media_id"`
+	MediaMessage
 	Title       string `json:"title"`
 	Description string `json:"description"`
 }
 
-type FileMessage struct {
-	MediaId string `json:"media_id"`
+//创建一条视频消息（image、voice、file）
+func NewVideoMessage(title, description, mediaId string) *Message {
+	videoMessage := VideoMessage{
+		Title:       title,
+		Description: description,
+	}
+	videoMessage.MediaId = mediaId
+
+	return &Message{
+		MsgType: "video",
+		Video:   &videoMessage,
+	}
 }
 
 type TextCardMessage struct {
