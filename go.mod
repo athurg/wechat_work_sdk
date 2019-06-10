@@ -1,4 +1,4 @@
-module wechat
+module github.com/athurg/wechat_work_sdk
 
 go 1.12
 

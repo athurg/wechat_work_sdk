@@ -3,17 +3,34 @@ package main
 import (
 	"log"
 	"net/http"
-	"wechat"
 
-    "github.com/tencentyun/scf-go-lib/cloudfunction"
+	"github.com/athurg/wechat_work_sdk"
+	"github.com/tencentyun/scf-go-lib/cloudfunction"
 )
 
 func main() {
-    cloudfunction.Start(hello)
+	client := wechat.NewAgentClientFromEnv()
+
+	client.SendTextToUsers("中华英豪", "fengjianbo")
+
+	message := wechat.NewNewsMessage()
+	message.Append("标题标题3", "http://b22aiodu.com", "描sfa描述", "")
+	message.Append("标题标题44", "http://ba22iodu.com", "描述描述s", "")
+
+	log.Println(client.SendNewsMessageToUsers(message, "fengjianbo"))
+	return
+	cloudfunction.Start(hello)
 }
 
 func hello() error {
 	client := wechat.NewAgentClientFromEnv()
+	message := wechat.NewNewsMessage()
+	message.Append("标题标题", "http://baiodu.com", "描述描述", "")
+	message.Append("标题标题2", "http://baiodu.com", "描述描述s", "")
+
+	client.SendNewsMessageToUsers(message, "fengjianbo")
+
+	return nil
 
 	token, err := client.GetAccessTokenFromCache()
 	if err != nil {
