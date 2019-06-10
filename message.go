@@ -112,8 +112,8 @@ func NewNewsMessage() *NewsMessage {
 func (nm *NewsMessage) Append(title, url, description, picUrl string) {
 	article := NewsArticle{
 		Title:       title,
-		Description: url,
-		Url:         description,
+		Description: description,
+		Url:         url,
 		PicUrl:      picUrl,
 	}
 	nm.Articles = append(nm.Articles, article)
