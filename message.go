@@ -103,6 +103,22 @@ type NewsMessage struct {
 	Articles []NewsArticle `json:"articles"`
 }
 
+func NewNewsMessage() *NewsMessage {
+	return &NewsMessage{
+		Articles: []NewsArticle{},
+	}
+}
+
+func (nm *NewsMessage) Append(title, url, description, picUrl string) {
+	article := NewsArticle{
+		Title:       title,
+		Description: url,
+		Url:         description,
+		PicUrl:      picUrl,
+	}
+	nm.Articles = append(nm.Articles, article)
+}
+
 type MpNewsArticle struct {
 	Title            string `json:"title"`
 	ThumbMediaId     string `json:"thumb_media_id"`

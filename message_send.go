@@ -20,6 +20,19 @@ func (cli *AgentClient) SendTextToUsers(content string, users ...string) (string
 	return invalidUsers, err
 }
 
+//给多个用户发送图文消息
+func (cli *AgentClient) SendNewsMessageToUsers(newsMessage *NewsMessage, users ...string) (string, error) {
+	message := &Message{
+		MsgType: "news",
+		News:    newsMessage,
+	}
+	message.SetUser(users)
+
+	invalidUsers, _, _, err := cli.MessageSend(message)
+
+	return invalidUsers, err
+}
+
 //消息推送-发送应用消息
 func (cli *AgentClient) MessageSend(message *Message) (string, string, string, error) {
 	message.AgentId = cli.AgentId
