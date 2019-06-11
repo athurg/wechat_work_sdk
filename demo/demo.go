@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/athurg/wechat_work_sdk"
+	"github.com/go-http/wechat_work"
 	"github.com/tencentyun/scf-go-lib/cloudfunction"
 )
 
