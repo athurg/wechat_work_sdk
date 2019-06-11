@@ -100,6 +100,7 @@ type NewsArticle struct {
 }
 
 const MaxNewsArticles = 8
+
 type NewsMessage struct {
 	Articles []NewsArticle `json:"articles"`
 }
@@ -130,6 +131,7 @@ type MpNewsArticle struct {
 }
 
 const MaxMpNewsArticles = 8
+
 type MpNewsMessage struct {
 	Articles []MpNewsArticle `json:"articles"`
 }

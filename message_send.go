@@ -33,12 +33,10 @@ func (cli *AgentClient) SendNewsMessageToUsers(newsMessage *NewsMessage, users .
 	return invalidUsers, err
 }
 
-
-
 //给多个用户发送批量图文消息，当图文信息超过单条上限时自动分隔成多条,并且每一条消息都用原来的第一条作为封面消息
 func (cli *AgentClient) SendBatchNewsMessageToUsers(newsMessage *NewsMessage, users ...string) (string, error) {
 	size := len(newsMessage.Articles)
-	if size<=1 {
+	if size <= 1 {
 		return cli.SendNewsMessageToUsers(newsMessage, users...)
 	}
 
@@ -76,7 +74,6 @@ func (cli *AgentClient) SendBatchNewsMessageToUsers(newsMessage *NewsMessage, us
 
 	return allInvalidUsers, nil
 }
-
 
 //消息推送-发送应用消息
 func (cli *AgentClient) MessageSend(message *Message) (string, string, string, error) {
