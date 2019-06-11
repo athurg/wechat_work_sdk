@@ -25,6 +25,10 @@ type AgentClient struct {
 func NewAgentClientFromEnv() *AgentClient {
 	corpId := os.Getenv("WECHAT_CORP_ID")
 	secret := os.Getenv("WECHAT_SECRET")
+	if corpId == "" || secret == "" {
+		fmt.Println("WARN: WECHAT_CORP_ID or WECHAT_SECRET not be set")
+	}
+
 	agentId, _ := strconv.Atoi(os.Getenv("WECHAT_AGENT_ID"))
 	return NewAgentClient(corpId, agentId, secret)
 }
