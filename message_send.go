@@ -1,6 +1,6 @@
 package wechat
 
-//给多个用户发送文本应用消息
+//SendImageToUsers 用于给多个用户发送文本应用消息
 func (cli *AgentClient) SendImageToUsers(mediaId string, users ...string) (string, error) {
 	message := NewMediaMessage("image", mediaId)
 	message.SetUser(users)
@@ -10,7 +10,7 @@ func (cli *AgentClient) SendImageToUsers(mediaId string, users ...string) (strin
 	return invalidUsers, err
 }
 
-//给多个用户发送文本应用消息
+//SendTextToUsers 用于给多个用户发送文本应用消息
 func (cli *AgentClient) SendTextToUsers(content string, users ...string) (string, error) {
 	message := NewTextMessage(content)
 	message.SetUser(users)
@@ -20,7 +20,7 @@ func (cli *AgentClient) SendTextToUsers(content string, users ...string) (string
 	return invalidUsers, err
 }
 
-//给多个用户发送图文消息
+//SendNewsMessageToUsers 用于给多个用户发送图文消息
 func (cli *AgentClient) SendNewsMessageToUsers(newsMessage *NewsMessage, users ...string) (string, error) {
 	message := &Message{
 		MsgType: "news",
@@ -33,7 +33,7 @@ func (cli *AgentClient) SendNewsMessageToUsers(newsMessage *NewsMessage, users .
 	return invalidUsers, err
 }
 
-//给多个用户发送批量图文消息，当图文信息超过单条上限时自动分隔成多条,并且每一条消息都用原来的第一条作为封面消息
+//SendBatchNewsMessageToUsers 给多个用户发送批量图文消息，当图文信息超过单条上限时自动分隔成多条,并且每一条消息都用原来的第一条作为封面消息
 func (cli *AgentClient) SendBatchNewsMessageToUsers(newsMessage *NewsMessage, users ...string) (string, error) {
 	size := len(newsMessage.Articles)
 	if size <= 1 {
@@ -75,7 +75,7 @@ func (cli *AgentClient) SendBatchNewsMessageToUsers(newsMessage *NewsMessage, us
 	return allInvalidUsers, nil
 }
 
-//消息推送-发送应用消息
+//MessageSend 用于消息推送-发送应用消息
 func (cli *AgentClient) MessageSend(message *Message) (string, string, string, error) {
 	message.AgentId = cli.AgentId
 

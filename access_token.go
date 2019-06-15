@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+//GetAccessTokenFromCache 用于获取AccessToken，如果有缓存过期则自动刷新
 func (cli *AgentClient) GetAccessTokenFromCache() (string, error) {
 	var err error
 	if time.Now().After(cli.AccessTokenExpiresAt) {
@@ -17,6 +18,7 @@ func (cli *AgentClient) GetAccessTokenFromCache() (string, error) {
 	return cli.AccessToken, err
 }
 
+//RefreshAccessToken 用于刷新AccessToken
 func (cli *AgentClient) RefreshAccessToken() error {
 	p := url.Values{
 		"corpid":     {cli.CorpId},

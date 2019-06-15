@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-//用于主动调用微信API的Agent客户端
+//AgentClient 是用于主动调用微信API的Agent客户端
 type AgentClient struct {
 	CorpId  string
 	AgentId int
@@ -22,6 +22,7 @@ type AgentClient struct {
 	AccessTokenExpiresAt time.Time
 }
 
+//NewAgentClientFromEnv 从环境变量中获取配置信息并创建一个微信企业应用的客户端，如果未获取到配置信息则打印警告信息
 func NewAgentClientFromEnv() *AgentClient {
 	corpId := os.Getenv("WECHAT_CORP_ID")
 	secret := os.Getenv("WECHAT_SECRET")
@@ -33,6 +34,7 @@ func NewAgentClientFromEnv() *AgentClient {
 	return NewAgentClient(corpId, agentId, secret)
 }
 
+//NewAgentClient 创建新的微信企业应用客户端
 func NewAgentClient(corpId string, agentId int, secret string) *AgentClient {
 	return &AgentClient{
 		CorpId:  corpId,
@@ -41,11 +43,13 @@ func NewAgentClient(corpId string, agentId int, secret string) *AgentClient {
 	}
 }
 
+//CommonResponse 是微信API公用返回结构
 type CommonResponse struct {
 	ErrCode int
 	ErrMsg  string
 }
 
+//WechatApiUrl 保存微信企业号API服务器地址
 const WechatApiUrl = "https://qyapi.weixin.qq.com/cgi-bin"
 
 func (cli *AgentClient) requestWithToken(method, path string, query url.Values, reqData interface{}, respInfo interface{}) error {

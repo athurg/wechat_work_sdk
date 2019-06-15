@@ -35,7 +35,7 @@ func buildMediaUploadForm(fileReader io.Reader) (io.Reader, string, error) {
 	return buffer, multipartWriter.FormDataContentType(), nil
 }
 
-//上传临时素材，返回素材ID和上传时间戳（三天后素材自动过期）
+//MediaUpload 用于上传临时素材，返回素材ID和上传时间戳（三天后素材自动过期）
 func (cli *AgentClient) MediaUpload(mediaType string, mediaReader io.Reader) (string, int, error) {
 	token, err := cli.GetAccessTokenFromCache()
 	if err != nil {
@@ -86,22 +86,22 @@ func (cli *AgentClient) MediaUpload(mediaType string, mediaReader io.Reader) (st
 	return respInfo.MediaId, respInfo.CreatedAt, nil
 }
 
-//上传临时图片素材，返回素材ID和上传时间戳（三天后素材自动过期）
+//ImageMediaUpload 用于上传临时图片素材，返回素材ID和上传时间戳（三天后素材自动过期）
 func (cli *AgentClient) ImageMediaUpload(mediaReader io.Reader) (string, int, error) {
 	return cli.MediaUpload("image", mediaReader)
 }
 
-//上传临时语音素材，返回素材ID和上传时间戳（三天后素材自动过期）
+//VoiceMediaUpload 用于上传临时语音素材，返回素材ID和上传时间戳（三天后素材自动过期）
 func (cli *AgentClient) VoiceMediaUpload(mediaReader io.Reader) (string, int, error) {
 	return cli.MediaUpload("voice", mediaReader)
 }
 
-//上传临时视频素材，返回素材ID和上传时间戳（三天后素材自动过期）
+//VideoMediaUpload 用于上传临时视频素材，返回素材ID和上传时间戳（三天后素材自动过期）
 func (cli *AgentClient) VideoMediaUpload(mediaReader io.Reader) (string, int, error) {
 	return cli.MediaUpload("video", mediaReader)
 }
 
-//上传临时文件素材，返回素材ID和上传时间戳（三天后素材自动过期）
+//FileMediaUpload 用于上传临时文件素材，返回素材ID和上传时间戳（三天后素材自动过期）
 func (cli *AgentClient) FileMediaUpload(mediaReader io.Reader) (string, int, error) {
 	return cli.MediaUpload("file", mediaReader)
 }
