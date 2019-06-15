@@ -157,7 +157,7 @@ type MiniprogramNoticeMessage struct {
 	Page              string                         `json:"page"`
 	Title             string                         `json:"title"`
 	Description       string                         `json:"description"`
-	EmphasisFirstItem bool                           `json:"description"`
+	EmphasisFirstItem bool                           `json:"emphasis_first_item"`
 	ContentItem       []MiniprogramNoticeContentItem `json:"content_item"`
 }
 
