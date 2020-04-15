@@ -45,6 +45,18 @@ func NewTextMessage(content string) *Message {
 	}
 }
 
+//NewTextCardMessage 创建一条文本卡片消息并设置内容，内容支持换行、超链接
+func NewTextCardMessage(title, description, url string) *Message {
+	return &Message{
+		MsgType: "textcard",
+		TextCard: &TextCardMessage{
+			Title:       title,
+			Description: description,
+			Url:         url,
+		},
+	}
+}
+
 //MediaMessage 定义了消息推送中的多媒体消息
 type MediaMessage struct {
 	MediaId string `json:"media_id"`

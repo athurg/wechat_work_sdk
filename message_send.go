@@ -20,6 +20,16 @@ func (cli *AgentClient) SendTextToUsers(content string, users ...string) (string
 	return invalidUsers, err
 }
 
+//SendTextCardToUsers 用于给多个用户发送文本应用消息
+func (cli *AgentClient) SendTextCardToUsers(title, description, url string, users ...string) (string, error) {
+	message := NewTextCardMessage(title, description, url)
+	message.SetUser(users)
+
+	invalidUsers, _, _, err := cli.MessageSend(message)
+
+	return invalidUsers, err
+}
+
 //SendNewsMessageToUsers 用于给多个用户发送图文消息
 func (cli *AgentClient) SendNewsMessageToUsers(newsMessage *NewsMessage, users ...string) (string, error) {
 	message := &Message{
